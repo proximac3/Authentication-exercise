@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+ 
+<title> {% block title%} User {% endblock%} </title>
+ 
+{% block content%} 
+    {% if "user_name" in session %}
+        <h1>You are logged in as {{user.username}}</h1>
+
+        <div >
+            <!-- logout form -->
+            <form action="/logout" method="post">
+                <button>Logout</button>
+            </form>
+        </div>
+
+        <div class="user-info">
+            <h2>User Info </h2>
+            <p>Username : {{user.username}}</p>
+            <p>Email : {{user.email}}</p>
+            <p>First Name : {{user.first_name}}</p>
+            <p>Last Name : {{user.last_name}}</p>
+        </div>
+
+        <Div class="feedback">
+            <h3>Feedback</h3>
+            {%for feedback in user.feed%}
+                <p>Title : {{feedback.title}} ,  Content: {{feedback.content}} 
+                    <a href=/feedback/edit/{{feedback.id}} >Edit</a> 
+                    <a href="">Delete</a>
+                </p>
+            {%endfor%}
+
+        </Div>
+        <button> <a href=/feedback/{{user.username}}> Submit Feedback </a> </button>
+
+    {% else %}
+        <h1>You have to be logged in to view user content</h1>
+        <a href="/login">login</a>
+    {% endif %}
+
+{% endblock %}
+
+

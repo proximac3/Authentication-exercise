@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+ 
+<title> {% block title%} Register {% endblock%} </title>
+ 
+{% block content%} 
+    <h1> New user Register Below</h1>
+    <h2>Already registered? <a href="/login">Login</a></h2>
+
+    {% for msg in get_flashed_messages() %}
+        {{msg}}
+    {% endfor %}
+
+    <form action="/register" method="post">
+        {{form.hidden_tag()}}
+        {% for field in form if field.widget.input_type != 'hidden'%}
+
+        <p>
+            {{field.label}}
+            {{field}}
+        </p>
+
+        {% for error in field.errors%}
+            {{error}}
+        {%endfor%}
+
+        {% endfor %}
+
+        <button type="submit">Register</button>
+    </form>
+
+
+{% endblock %}

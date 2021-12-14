@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+ 
+<title> {% block title%} Secrets {% endblock%} </title>
+ 
+{% block content%} 
+    {% if "user_name" in session %}
+        <h1>You're logged in </h1>
+        <form action="/logout" method="post">
+            <button type="submit"> Logout </button>
+        </form>
+
+    {% else %}
+        <h1> Login  </h1>
+        <h2><a href="/register">Register</a></h2>
+
+        <form action="/login" method="post">
+            {{form.hidden_tag()}}
+
+            {% for field in form if field.widget.input_type != 'hidden'%}
+            <p>
+                {{field.label}}
+                {{field}}
+            </p>
+
+            {% for error in field.errors%}
+                {{error}}
+            {%endfor%}
+
+            {% endfor %}
+
+            <button type="submit">Login</button>
+        </form>
+
+
+    {% endif %}
+
+    
+{% endblock %}
+
+
+
+
+
+
+
+
+
